@@ -1,0 +1,80 @@
+﻿@page
+@model Leave_Application.Pages.RequestsModel
+@{
+    ViewData["Title"] = "Requests";
+}
+<div class="text-center">
+    <h1 class="display-4">Leave Requests</h1>
+</div>
+<a asp-page="Index" class="btn btn-outline-primary">New Leave Requests</a>
+<div>
+    @if(Model.Requests.Count() == 0)
+    {
+        <p class="text-center">No requests found!</p>
+    }
+    else
+    {
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>
+                    First name
+                </th>
+                <th>
+                    Last name
+                </th>
+                <th>
+                    Leave type
+                </th>
+                <th>
+                    Leave start date
+                </th>
+                <th>
+                    Leave end date
+                </th>
+                <th>
+                    Leave no. of days
+                </th>
+                <th>
+                    No. of days left
+                </th>
+                <th>
+                    Reason for leave
+                </th>
+            </tr>
+        </thead>
+                <tbody>
+                @foreach (var request in Model.Requests)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => request.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => request.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => request.LeaveType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => request.LeaveStartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => request.LeaveEndDate.Date);
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => (request.LeaveEndDate.Date - request.LeaveStartDate.Date).Days)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => (request.LeaveEndDate.Date - DateTime.Now.Date).Days)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => request.ReasonForLeave);
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+        </table>
+    }
+</div>
+  
